@@ -15,4 +15,6 @@
 
 - (void)saveProduct:(PPArbitraryModel*) arbModel withCompletion:(void(^)(NSError *error)) completion;
 
+- (void)getAllProductsWithCompletion:(void(^)(NSArray* array,NSError *error)) completion;
+
 @end

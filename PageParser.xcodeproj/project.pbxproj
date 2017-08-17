@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45062FE31F46104700E87C7E /* PPProductListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45062FE21F46104700E87C7E /* PPProductListCell.m */; };
 		451251671F19404F00ACF5C0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 451251661F19404F00ACF5C0 /* main.m */; };
 		4512516A1F19404F00ACF5C0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 451251691F19404F00ACF5C0 /* AppDelegate.m */; };
 		451251701F19404F00ACF5C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4512516E1F19404F00ACF5C0 /* Main.storyboard */; };
@@ -29,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		45062FE11F46104700E87C7E /* PPProductListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPProductListCell.h; sourceTree = "<group>"; };
+		45062FE21F46104700E87C7E /* PPProductListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPProductListCell.m; sourceTree = "<group>"; };
 		451251621F19404F00ACF5C0 /* PageParser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PageParser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		451251661F19404F00ACF5C0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		451251681F19404F00ACF5C0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -89,6 +92,23 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		45062FE01F46102100E87C7E /* ProductListCell */ = {
+			isa = PBXGroup;
+			children = (
+				45062FE11F46104700E87C7E /* PPProductListCell.h */,
+				45062FE21F46104700E87C7E /* PPProductListCell.m */,
+			);
+			path = ProductListCell;
+			sourceTree = "<group>";
+		};
+		45062FE41F4611FD00E87C7E /* ProductListViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ProductListViewController;
+			path = ViewControllers/ProductListViewController;
+			sourceTree = "<group>";
+		};
 		451251591F19404F00ACF5C0 = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +158,7 @@
 		4512517C1F19406000ACF5C0 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				45062FE41F4611FD00E87C7E /* ProductListViewController */,
 				45E8BBAF1F2A50D9009E03D1 /* ConfigureProductViewController */,
 				451251801F19411600ACF5C0 /* ProductListViewController.h */,
 				451251811F19411600ACF5C0 /* ProductListViewController.m */,
@@ -245,6 +266,7 @@
 		45E8BBA61F2A4D52009E03D1 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				45062FE01F46102100E87C7E /* ProductListCell */,
 				457B06721F458F3A0084BF21 /* Categories */,
 				45E8BBAB1F2A5063009E03D1 /* InputCell */,
 				45E8BBA71F2A4D52009E03D1 /* PPAddCell */,
@@ -416,6 +438,7 @@
 				457B067A1F4593EE0084BF21 /* PPRuntimeManager.m in Sources */,
 				45E8BB9D1F2A3BC5009E03D1 /* PPFirebaseManager.m in Sources */,
 				451251821F19411600ACF5C0 /* ProductListViewController.m in Sources */,
+				45062FE31F46104700E87C7E /* PPProductListCell.m in Sources */,
 				457B06711F458EAE0084BF21 /* PPArbitraryModel.m in Sources */,
 				452407C21F194D0F00C72305 /* PPDataFetcher.m in Sources */,
 				45E8BBA51F2A3FEB009E03D1 /* PPBaseModel.m in Sources */,

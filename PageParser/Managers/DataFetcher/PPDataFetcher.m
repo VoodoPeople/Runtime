@@ -24,6 +24,11 @@ static NSString *const kBaseHTMLFile = @"HTMLBase";
 @implementation PPDataFetcher
 
 
+//Usage
+
+//BOOL result =  [[PPDataFetcher dataFetcherManager] downloadHtmlPageData];
+//[[PPDataFetcher dataFetcherManager] parseProductItem];
+
 
 +(id)dataFetcherManager{
     
@@ -107,7 +112,6 @@ static NSString *const kBaseHTMLFile = @"HTMLBase";
     for (TFHppleElement *element in tutorialsNodes) {
         [self getChild:element];
     }
-    
 }
 
 
@@ -121,10 +125,7 @@ static NSString *const kBaseHTMLFile = @"HTMLBase";
     }
     
     return [self getChild:child];
-    
 }
-
-
 
 -(void) getLinkFromNode:(TFHppleElement*) element {
     TFHpple *parseLink  = [[TFHpple alloc] initWithHTMLData:[element.raw dataUsingEncoding:NSUTF8StringEncoding]];

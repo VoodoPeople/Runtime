@@ -8,22 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-
-
-
-
-
 @interface PPArbitraryModel : NSObject
 
-@property id productId;
-
+@property (strong, nonatomic) id productId;
+@property (strong, nonatomic) id productName;
 
 - (void)addPropertyWithKey:(NSString*) key value:(NSString*) value;
 
 - (NSArray*)propertiesArray;
 - (NSDictionary*)propertiesDictionary;
-
-- (void)productId:(id)object;
-- (id)productId;
-
++ (Class)makeSubclass:(NSString*) subclass;
 @end

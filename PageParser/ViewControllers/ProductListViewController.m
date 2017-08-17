@@ -8,40 +8,44 @@
 
 #import "ProductListViewController.h"
 #import "PPDataFetcher.h"
+#import "PPArbitraryModel.h"
+#import "PPFirebaseManager.h"
+#import "PPProductListCell.h"
 
+@interface ProductListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-
-@interface ProductListViewController ()
-
-
-
-
-
-@property (weak, nonatomic) IBOutlet UIImageView *successImageView;
-
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSArray<PPArbitraryModel*> *products;
 @end
 
 @implementation ProductListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    BOOL result =  [[PPDataFetcher dataFetcherManager] downloadHtmlPageData];
-    if (result) {
-        self.successImageView.tintColor = [UIColor greenColor];
-    }else{
-        self.successImageView.tintColor = [UIColor redColor];
-    }
-    
-    [[PPDataFetcher dataFetcherManager] parseProductItem];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [[PPFirebaseManager sharedInstance] getAllProductsWithCompletion:^(NSArray *array, NSError *error) {
+        self.products = array;
+        [self.tableView reloadData];
+    }];
     
 }
 
+#pragma mark - UITableViewDataSource
 
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return self.products.count;
+}
 
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    PPProductListCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PPProductListCell class])];
+    cell.productNameLabel.text = NSStringFromClass([self.products[indexPath.row] class]);
+    return cell;
+}
 
-
-
-
+#pragma mark - UITableViewDelegate
 
 
 

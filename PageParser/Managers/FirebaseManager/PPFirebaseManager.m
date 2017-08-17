@@ -47,21 +47,6 @@ static PPFirebaseManager *sharedManager;
 }
 
 
--(void) writeToNode:(NSString*) node product:(ProductModel*) productModel{
-    
-    [[self.rootReference child:node] setValue:[productModel toDictionary] withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
-    
-    }];
-}
-
--(void)readFromNode:(NSString*) node completion:(void(^)(NSDictionary* result)) completion{
-    
-    [[self.rootReference child:node] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        completion(nil);
-    }];
-}
-
-
 - (void)saveProduct:(PPArbitraryModel*) arbModel withCompletion:(void(^)(NSError *error)) completion {
     
     [[[self.rootReference child:@"products"] child:arbModel.productId] setValue:[arbModel propertiesDictionary] withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
@@ -72,6 +57,41 @@ static PPFirebaseManager *sharedManager;
         }
     }];
 }
+
+- (void)getAllProductsWithCompletion:(void(^)(NSArray* array,NSError *error)) completion {
+    
+    [[self.rootReference child:@"products"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        NSDictionary *snapshotValue = snapshot.value;
+        
+        if ([snapshotValue isKindOfClass:[NSNull class]]) {
+            completion(nil,[[NSError alloc] init]);
+        } else {
+            
+            NSMutableArray *products = [NSMutableArray array];
+            
+            
+            for (NSString *key in snapshotValue) {
+                
+                NSDictionary* value = [snapshotValue valueForKey:key];
+                NSString *subclassName = [value valueForKey:@"productName"];
+                if (subclassName == nil) {
+                    continue;
+                }
+                PPArbitraryModel *model = [[[PPArbitraryModel makeSubclass:subclassName] alloc] init];
+
+                for (NSString *propertyName in value) {
+                    NSString* propertyValue = [value valueForKey:key];
+                    [model addPropertyWithKey:propertyName value:propertyValue];
+                }
+                [products addObject:model];
+            }
+            completion(products,nil);
+        }
+    }];
+    
+}
+
 
 
 @end

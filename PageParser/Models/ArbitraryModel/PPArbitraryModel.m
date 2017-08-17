@@ -76,17 +76,29 @@
         char const *propertyName = property_getName(properties[i]);
         const char *attr = property_getAttributes(properties[i]);
         
-        if (attr[1] == '@' && i < propertyCount-1) {
+        if (attr[1] == '@' && i < propertyCount-2) {
             
             NSString *selector = [NSString stringWithCString:propertyName encoding:NSUTF8StringEncoding];
             SEL sel = sel_registerName([selector UTF8String]);
             NSObject * propertyValue = objc_getAssociatedObject(self, sel);
+            if (propertyValue == nil) {
+                propertyValue = ((id (*)(id, SEL))objc_msgSend)(self,sel);
+            }
             NSDictionary* arrayItem = @{NSStringFromSelector(sel):propertyValue};
             [keyValueArray addObject:arrayItem];
             
         }
     }
     return keyValueArray;
+}
+
+
++ (Class) makeSubclass:(NSString*) subclass{
+    
+    Class newClass = objc_allocateClassPair([PPArbitraryModel class], [subclass UTF8String], 0);
+    objc_registerClassPair(newClass);
+    
+    return newClass;
 }
 
 

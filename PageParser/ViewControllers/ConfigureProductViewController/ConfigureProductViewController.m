@@ -13,15 +13,13 @@
 
 #import "PPArbitraryModel.h"
 
-
+#import <objc/runtime.h>
 @interface ConfigureProductViewController () <UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-@property (strong,nonatomic) NSMutableArray *keys;
-@property (strong,nonatomic) NSMutableArray *values;
-
 @property (assign, nonatomic) NSInteger numberOfRows;
+
+@property (weak, nonatomic) IBOutlet UITextField *productName;
 
 @property (strong, nonatomic) PPArbitraryModel *arbitraryModel;
 
@@ -31,12 +29,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.arbitraryModel = [[PPArbitraryModel alloc]  init];
+    
     self.numberOfRows = 1;
+//    self.arbitraryModel = [[[self inheritClass:[PPArbitraryModel class] subclass:self.productName.text] alloc] init];
+    
 }
 
 
-#pragma mark - Private 
+- (Class) inheritClass:(id) class subclass:(NSString*) subclass{
+    
+    Class newClass = objc_allocateClassPair([class class], [subclass UTF8String], 0);
+    objc_registerClassPair(newClass);
+    
+    return newClass;
+}
+
+#pragma mark - Private
 
 #pragma mark - Actions
 
@@ -46,6 +54,8 @@
 }
 
 - (IBAction)saveAction:(id)sender {
+    
+    self.arbitraryModel.productName = self.productName.text;
     
     [[PPFirebaseManager sharedInstance] saveProduct:self.arbitraryModel withCompletion:^(NSError *error) {
         if (!error) {
@@ -94,10 +104,11 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.row + 1 == _numberOfRows) {
-        
-    
+    if (indexPath.row + 1 == _numberOfRows) { 
         if (_numberOfRows > 1) {
+            if (self.arbitraryModel == nil) {
+                self.arbitraryModel = [[[self inheritClass:[PPArbitraryModel class] subclass:self.productName.text] alloc] init];
+            }
             NSIndexPath *previouseCellIndexpath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
             InputTableViewCell *cell = [self.tableView cellForRowAtIndexPath:previouseCellIndexpath];
             if ([cell isMemberOfClass:[InputTableViewCell class]]) {
