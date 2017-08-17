@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  ProductListViewController.h
 //  PageParser
 //
 //  Created by Ozzy on 14.07.17.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface ProductListViewController : UIViewController
 
 @end
-

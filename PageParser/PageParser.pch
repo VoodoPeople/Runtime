@@ -1,0 +1,15 @@
+//
+//  PageParser.pch
+//  PageParser
+//
+//  Created by Ozzy on 17.08.17.
+//  Copyright © 2017 Empty. All rights reserved.
+//
+
+#ifndef PageParser_pch
+#define PageParser_pch
+
+
+//#define APP_DELEGATE (AppDelegate*)[UIApplication sharedApplication].delegate
+
+#endif /* PageParser_pch */
